@@ -30,9 +30,11 @@ plot(pressure)
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
 
+Let's install tidyverse and import data.
 ```{r echo=FALSE}
 library(tidyverse)
-
-
+filename<-'Video_Games_Sales_as_at_22_Dec_2016'
+wd<-getwd()
+read.csv('wd')
 ```
 
