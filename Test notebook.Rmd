@@ -33,8 +33,24 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 Let's install tidyverse and import data.
 ```{r echo=FALSE}
 library(tidyverse)
-filename<-'Video_Games_Sales_as_at_22_Dec_2016'
-wd<-getwd()
-read.csv('wd')
+library(readr)
+Video_Games_Sales_as_at_22_Dec_2016 <- read_csv("Kaggle_Video_Game_Sales_Data/Video_Games_Sales_as_at_22_Dec_2016.csv")
+View(Video_Games_Sales_as_at_22_Dec_2016)
+Data<-Video_Games_Sales_as_at_22_Dec_2016
 ```
+
+EDA 1
+```{r}
+
+```
+
+
+Let's create the training and test sets.
+```{r}
+library(caret)
+set.seed(0623)
+test_index <- createDataPartition(Data, times = 1, p = 0.5, list = FALSE)
+```
+
+
 
