@@ -1,7 +1,7 @@
 library(tidyverse)
 library(readr)
 library(caret)
-
+library(broom)
 Orig_Data<-read_csv("Kaggle_Video_Game_Sales_Data/Video_Games_Sales_as_at_22_Dec_2016.csv")
 
 #EDA 1: Year of Release##
@@ -25,7 +25,7 @@ Data %>% select(Rating) %>% na.omit() %>%
 ##Create training/test sets##
 library(caret)
 set.seed(0623)
-test_index <- createDataPartition(Data$Global_Sales, times = 1, p = 0.8, list = FALSE)
+test_index <- createDataPartition(Orig_Data$Global_Sales, times = 1, p = 0.8, list = FALSE)
 train_set <-  Orig_Data[test_index, ] 
 test_set <- Orig_Data[-test_index, ]
 
@@ -34,6 +34,10 @@ train_set %>% select(Rating, Global_Sales) %>% filter(!is.na(Rating)) %>%
   ggplot(aes(Rating,Global_Sales)) +
   geom_boxplot()
 #Answer: somewhat hard to see but there is an effect of some sort.
+Rating_vs_Sales<-lm(Global_Sales ~ Rating, data=train_set)
+glance(Rating_vs_Sales)
+tidy(Rating_vs_Sales)
+#P-values say nope!
 
 ##EDA reviewing Global_Sales vs Genre##
 train_set %>% select(Genre, Global_Sales) %>% filter(!is.na(Genre)) %>% 
@@ -45,6 +49,9 @@ train_set %>% select(Genre, Global_Sales) %>% filter(!is.na(Genre)) %>%
   geom_point()
 #Probably not a good variable to predict global sales??
 #Let's see
+Genre_vs_Sales<-lm(Global_Sales~Genre,data = train_set)
+tidy(Genre_vs_Sales)
+#Answer: genre can work. 
 
 ##EDA Global_Sales##
 train_set %>% select(Global_Sales) %>% filter(!is.na(Global_Sales)) %>% 
@@ -108,9 +115,15 @@ train_set %>% select(Platform) %>% filter(!is.na(Platform)) %>%
 train_set %>% select(Platform, Global_Sales) %>% filter(!is.na(Platform)) %>% 
   ggplot(aes(Platform,Global_Sales, limit=40)) +
   geom_boxplot()
-  
 #small relationship? Some box plots are higher than others. 
-Platform_vs_Sales<-lm()
+Platform_vs_Sales<-lm(Global_Sales ~ Platform, data=train_set)
+glance(Platform_vs_Sales)
+tidy(Platform_vs_Sales)
+#P-values are low enough to say there is a relationship. 
+
+##EDA Testing whether there's correlation between variables Critic_Score, Critic_Count, 
+#
+train_set %>% glimpse(.$User_Score)
 
 
 
