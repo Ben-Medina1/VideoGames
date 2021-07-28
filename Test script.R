@@ -17,25 +17,25 @@ Data %>% select(Publisher) %>%
   ggplot(aes(Publisher)) +
   geom_bar()
 
-#EDA 4: Rating
+#EDA 4: Rating##
 Data %>% select(Rating) %>% na.omit() %>%
   ggplot(aes(Rating)) +
   geom_bar()
 
-##Create training/test sets
+##Create training/test sets##
 library(caret)
 set.seed(0623)
 test_index <- createDataPartition(Data$Global_Sales, times = 1, p = 0.8, list = FALSE)
 train_set <-  Orig_Data[test_index, ] 
 test_set <- Orig_Data[-test_index, ]
 
-#EDA Does Rating have effect on Global_Sales
+##EDA Does Rating have effect on Global_Sales##
 train_set %>% select(Rating, Global_Sales) %>% filter(!is.na(Rating)) %>% 
   ggplot(aes(Rating,Global_Sales)) +
   geom_boxplot()
-#Answer: Perhaps, but difference may be neglible enough to not have in ML model
+#Answer: somewhat hard to see but there is an effect of some sort.
 
-##EDA reviewing Global_Sales vs Genre
+##EDA reviewing Global_Sales vs Genre##
 train_set %>% select(Genre, Global_Sales) %>% filter(!is.na(Genre)) %>% 
   ggplot(aes(Genre,Global_Sales)) +
   geom_boxplot()
@@ -45,11 +45,8 @@ train_set %>% select(Genre, Global_Sales) %>% filter(!is.na(Genre)) %>%
   geom_point()
 #Probably not a good variable to predict global sales??
 #Let's see
-train_set %>% select(Genre, Global_Sales) %>% filter(!is.na(Genre)) %>%
-  qplot(Genre,Global_Sales, data=.) 
 
-
-##EDA Global_Sales
+##EDA Global_Sales##
 train_set %>% select(Global_Sales) %>% filter(!is.na(Global_Sales)) %>% 
   ggplot(aes(Global_Sales)) +
   geom_density()
@@ -63,13 +60,13 @@ train_set %>% select(Global_Sales) %>% filter(!is.na(Global_Sales)) %>%
   geom_qq()
 #Clearly this is not a normal distribution by any means
 
-#EDA User_Score
+##EDA User_Score##
 train_set %>% select(User_Score) %>% filter(!is.na(User_Score)) %>%
   ggplot(aes(User_Score)) +
   geom_bar()
 
 
-#EDA Critic_Score
+##EDA Critic_Score##
 train_set %>% select(Critic_Score) %>% filter(!is.na(Critic_Score)) %>%
   ggplot(aes(Critic_Score)) +
   geom_histogram(binwidth = 10)
@@ -80,7 +77,7 @@ train_set %>% select(Critic_Score) %>% filter(!is.na(Critic_Score)) %>%
   geom_qq()
 #Normal distribution
 
-##EDA Criic_Count
+##EDA Critic_Count##
 train_set %>% select(Critic_Count) %>% filter(!is.na(Critic_Count)) %>%
   ggplot(aes(Critic_Count)) +
   geom_histogram(binwidth = 1)
@@ -93,7 +90,7 @@ train_set %>% select(Critic_Count) %>% filter(!is.na(Critic_Count)) %>%
   ggplot(aes(sample = Critic_Count)) +
   geom_qq()
 
-##EDA Critic_Score
+##EDA Critic_Score##
 train_set %>% select(Critic_Score) %>% filter(!is.na(Critic_Score)) %>%
   ggplot(aes(Critic_Score)) +
   geom_histogram(binwidth = 2)
@@ -103,7 +100,18 @@ train_set %>% select(Critic_Score) %>% filter(!is.na(Critic_Score)) %>%
 library(caret)
 nzv <- nearZeroVar(x)
 
-##EDA Developer vs Global Sales
+##EDA Platform
+train_set %>% select(Platform) %>% filter(!is.na(Platform)) %>%
+  ggplot(aes(Platform))+
+  geom_bar()
+#Relationship with Global_Sales?
+train_set %>% select(Platform, Global_Sales) %>% filter(!is.na(Platform)) %>% 
+  ggplot(aes(Platform,Global_Sales, limit=40)) +
+  geom_boxplot()
+  
+#small relationship? Some box plots are higher than others. 
+Platform_vs_Sales<-lm()
+
 
 
 
