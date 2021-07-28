@@ -8,6 +8,7 @@ output: pdf_document
 # **Introduction**
 This is a model built on the Kaggle Video Game Sales dataset which was created in 2016. 
 
+The data consists of 16719 records of video games along with their Year released, Genre, Publisher, Platform, and total sales data for North America, European Union, Japan, and other countries. 
 
 # **Methods/analysis**
 
