@@ -120,7 +120,7 @@ glance(Platform_vs_Sales)
 tidy(Platform_vs_Sales)
 #P-values are low enough to say there is a relationship. 
 #####
-##EDA Testing whether there's correlation between variables Critic_Score & Critic_Count ##
+##EDA Testing whether there's correlation between variables Critic_Score & Critic_Count##
 train_set %>% glimpse(
 
 ##RMSE formula for checking model##

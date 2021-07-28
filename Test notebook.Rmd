@@ -4,7 +4,10 @@ author: "Bbm"
 date: "7/26/2021"
 output: pdf_document
 ---
-# **Introduction/overview/executive summary**
+
+# **Introduction**
+This is a model built on the Kaggle Video Game Sales dataset which was created in 2016. 
+
 
 # **Methods/analysis**
 
@@ -33,6 +36,16 @@ train_set <- Orig_Data[-test_index, ]
 ## Exploratory Data Analysis
 
 ## Model Creation
+
+For this project I'll use two models: basic linear regression (which was suggested by the Kaggle website), as well as a Regression tree model.
+
+Let's start with basic regression. 
+
+```{r}
+library(caret)
+lm_data<-train_set %>% select(Global_Sales,Genre,Platform,Critic_Score,Critic_Count,User_Count,User_Count) %>% 
+train_lm <-train(Global_Sales ~ ., method='lm', data=train_set)
+```
 
 # Results
 
