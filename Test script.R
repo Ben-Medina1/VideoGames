@@ -26,7 +26,65 @@ Data %>% select(Rating) %>% na.omit() %>%
 library(caret)
 set.seed(0623)
 test_index <- createDataPartition(Data$Global_Sales, times = 1, p = 0.8, list = FALSE)
-test_set <-  Orig_Data[test_index, ] 
-train_set <- Orig_Data[-test_index, ]
+train_set <-  Orig_Data[test_index, ] 
+test_set <- Orig_Data[-test_index, ]
+
+#EDA Does Rating have effect on Global_Sales
+train_set %>% select(Rating, Global_Sales) %>% filter(!is.na(Rating)) %>% 
+  ggplot(aes(Rating,Global_Sales)) +
+  geom_boxplot()
+#Answer: Perhaps, but difference may be neglible enough to not have in ML model
+#Check with caret function
+
+#EDA reviewing Global_Sales vs Genre
+train_set %>% select(Genre, Global_Sales) %>% filter(!is.na(Genre)) %>% 
+  ggplot(aes(Genre,Global_Sales)) +
+  geom_boxplot()
+
+train_set %>% select(Genre, Global_Sales) %>% filter(!is.na(Genre)) %>% 
+  ggplot(aes(Genre,Global_Sales)) +
+  geom_point()
+#Probably not a good variable to predict global sales??
+
+#EDA Global_Sales
+train_set %>% select(Global_Sales) %>% filter(!is.na(Global_Sales)) %>% 
+  ggplot(aes(Global_Sales)) +
+  geom_density()
+
+train_set %>% select(Global_Sales) %>% filter(!is.na(Global_Sales)) %>% 
+  ggplot(aes(Global_Sales)) +
+  geom_histogram()
+
+train_set %>% select(Global_Sales) %>% filter(!is.na(Global_Sales)) %>% 
+  ggplot(aes(sample = scale(Global_Sales)) +
+  geom_qq()
+
+#Clearly this is not a normal distribution by any means
+
+#EDA User_Score
+train_set %>% select(User_Score) %>% filter(!is.na(User_Score)) %>%
+  ggplot(aes(User_Score)) +
+  geom_bar()
+
+#EDA Critic_Score
+train_set %>% select(Critic_Score) %>% filter(!is.na(Critic_Score)) %>%
+  ggplot(aes(Critic_Score)) +
+  geom_histogram(binwidth = 10)
+#QQ Plot to verify normal distribution
+train_set %>% select(Critic_Score) %>% filter(!is.na(Critic_Score)) %>%
+  ggplot(aes(sample = Critic_Score)) +
+  geom_qq()
+#Normal distribution
+
+##EDA Criic_Count
+train_set %>% select(Critic_Count) %>% filter(!is.na(Critic_Count)) %>%
+  ggplot(aes(Critic_Count)) +
+  geom_histogram(binwidth = 10)
+#QQ Plot
+train_set %>% select(Critic_Count) %>% filter(!is.na(Critic_Count)) %>%
+  ggplot(aes(sample = Critic_Count)) +
+  geom_qq()
+
+
 
 

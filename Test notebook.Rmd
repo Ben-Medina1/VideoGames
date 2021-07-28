@@ -39,11 +39,6 @@ View(Video_Games_Sales_as_at_22_Dec_2016)
 Data<-Video_Games_Sales_as_at_22_Dec_2016
 ```
 
-EDA 1
-```{r}
-
-```
-
 
 Let's create the training and test sets for determining overall sales.
 ```{r}
@@ -52,6 +47,13 @@ set.seed(0623)
 test_index <- createDataPartition(Data$Global_Sales, times = 1, p = 0.8, list = FALSE)
 test_set <-  Orig_Data[test_index, ] 
 train_set <- Orig_Data[-test_index, ]
+```
+
+EDA 1 Does Ratings of games affect overall global sales?
+```{r}
+train_set %>% select(Rating, Global_Sales) %>% filter(!is.na(Rating)) %>% 
+  ggplot(aes(Global_Sales)) +
+  geom_boxplot(color = Rating)
 ```
 
 ```{}
