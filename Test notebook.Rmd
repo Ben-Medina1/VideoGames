@@ -51,9 +51,7 @@ train_set <- Orig_Data[-test_index, ]
 
 EDA 1 Does Ratings of games affect overall global sales?
 ```{r}
-train_set %>% select(Rating, Global_Sales) %>% filter(!is.na(Rating)) %>% 
-  ggplot(aes(Global_Sales)) +
-  geom_boxplot(color = Rating)
+
 ```
 
 ```{}

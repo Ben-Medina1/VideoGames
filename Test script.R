@@ -22,7 +22,7 @@ Data %>% select(Rating) %>% na.omit() %>%
   ggplot(aes(Rating)) +
   geom_bar()
 
-#Create training/test sets
+##Create training/test sets
 library(caret)
 set.seed(0623)
 test_index <- createDataPartition(Data$Global_Sales, times = 1, p = 0.8, list = FALSE)
@@ -34,9 +34,8 @@ train_set %>% select(Rating, Global_Sales) %>% filter(!is.na(Rating)) %>%
   ggplot(aes(Rating,Global_Sales)) +
   geom_boxplot()
 #Answer: Perhaps, but difference may be neglible enough to not have in ML model
-#Check with caret function
 
-#EDA reviewing Global_Sales vs Genre
+##EDA reviewing Global_Sales vs Genre
 train_set %>% select(Genre, Global_Sales) %>% filter(!is.na(Genre)) %>% 
   ggplot(aes(Genre,Global_Sales)) +
   geom_boxplot()
@@ -45,8 +44,12 @@ train_set %>% select(Genre, Global_Sales) %>% filter(!is.na(Genre)) %>%
   ggplot(aes(Genre,Global_Sales)) +
   geom_point()
 #Probably not a good variable to predict global sales??
+#Let's see
+train_set %>% select(Genre, Global_Sales) %>% filter(!is.na(Genre)) %>%
+  qplot(Genre,Global_Sales, data=.) 
 
-#EDA Global_Sales
+
+##EDA Global_Sales
 train_set %>% select(Global_Sales) %>% filter(!is.na(Global_Sales)) %>% 
   ggplot(aes(Global_Sales)) +
   geom_density()
@@ -58,7 +61,6 @@ train_set %>% select(Global_Sales) %>% filter(!is.na(Global_Sales)) %>%
 train_set %>% select(Global_Sales) %>% filter(!is.na(Global_Sales)) %>% 
   ggplot(aes(sample = scale(Global_Sales)) +
   geom_qq()
-
 #Clearly this is not a normal distribution by any means
 
 #EDA User_Score
@@ -66,10 +68,12 @@ train_set %>% select(User_Score) %>% filter(!is.na(User_Score)) %>%
   ggplot(aes(User_Score)) +
   geom_bar()
 
+
 #EDA Critic_Score
 train_set %>% select(Critic_Score) %>% filter(!is.na(Critic_Score)) %>%
   ggplot(aes(Critic_Score)) +
   geom_histogram(binwidth = 10)
+
 #QQ Plot to verify normal distribution
 train_set %>% select(Critic_Score) %>% filter(!is.na(Critic_Score)) %>%
   ggplot(aes(sample = Critic_Score)) +
@@ -79,12 +83,27 @@ train_set %>% select(Critic_Score) %>% filter(!is.na(Critic_Score)) %>%
 ##EDA Criic_Count
 train_set %>% select(Critic_Count) %>% filter(!is.na(Critic_Count)) %>%
   ggplot(aes(Critic_Count)) +
-  geom_histogram(binwidth = 10)
+  geom_histogram(binwidth = 1)
 #QQ Plot
 train_set %>% select(Critic_Count) %>% filter(!is.na(Critic_Count)) %>%
   ggplot(aes(sample = Critic_Count)) +
   geom_qq()
+#Not normal, maybe log?
+train_set %>% select(Critic_Count) %>% filter(!is.na(Critic_Count)) %>%
+  ggplot(aes(sample = Critic_Count)) +
+  geom_qq()
 
+##EDA Critic_Score
+train_set %>% select(Critic_Score) %>% filter(!is.na(Critic_Score)) %>%
+  ggplot(aes(Critic_Score)) +
+  geom_histogram(binwidth = 2)
+#Much more normal distribution
+
+##EDA remove excess near zero variance variables
+library(caret)
+nzv <- nearZeroVar(x)
+
+##EDA Developer vs Global Sales
 
 
 
