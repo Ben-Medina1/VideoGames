@@ -19,18 +19,14 @@ When you click the **Knit** button a document will be generated that includes bo
 summary(cars)
 ```
 
-## Including Plots
+# **Introduction/overview/executive summary**
 
-You can also embed plots, for example:
+# **Methods/analysis**
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
+## Initial Set up
 
 Let's install tidyverse and import data.
+
 ```{r echo=FALSE}
 library(tidyverse)
 library(readr)
@@ -39,8 +35,8 @@ View(Video_Games_Sales_as_at_22_Dec_2016)
 Data<-Video_Games_Sales_as_at_22_Dec_2016
 ```
 
+Let's create the training and test sets for determining overall sales. Here I used the standard division of 80% training, 20 % test.
 
-Let's create the training and test sets for determining overall sales.
 ```{r}
 library(caret)
 set.seed(0623)
@@ -49,12 +45,10 @@ test_set <-  Orig_Data[test_index, ]
 train_set <- Orig_Data[-test_index, ]
 ```
 
-EDA 1 Does Ratings of games affect overall global sales?
-```{r}
+## Exploratory Data Analysis
 
-```
+## Model Creation
 
-```{}
-```
+# Results
 
-
+# Further thoughts
