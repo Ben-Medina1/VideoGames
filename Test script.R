@@ -38,6 +38,7 @@ Rating_vs_Sales<-lm(Global_Sales ~ Rating, data=train_set)
 glance(Rating_vs_Sales)
 tidy(Rating_vs_Sales)
 #P-values say nope!
+#####
 
 ##EDA reviewing Global_Sales vs Genre##
 train_set %>% select(Genre, Global_Sales) %>% filter(!is.na(Genre)) %>% 
@@ -52,6 +53,7 @@ train_set %>% select(Genre, Global_Sales) %>% filter(!is.na(Genre)) %>%
 Genre_vs_Sales<-lm(Global_Sales~Genre,data = train_set)
 tidy(Genre_vs_Sales)
 #Answer: genre can work. 
+#####
 
 ##EDA Global_Sales##
 train_set %>% select(Global_Sales) %>% filter(!is.na(Global_Sales)) %>% 
@@ -66,12 +68,13 @@ train_set %>% select(Global_Sales) %>% filter(!is.na(Global_Sales)) %>%
   ggplot(aes(sample = scale(Global_Sales)) +
   geom_qq()
 #Clearly this is not a normal distribution by any means
+#####
 
 ##EDA User_Score##
 train_set %>% select(User_Score) %>% filter(!is.na(User_Score)) %>%
   ggplot(aes(User_Score)) +
   geom_bar()
-
+#####
 
 ##EDA Critic_Score##
 train_set %>% select(Critic_Score) %>% filter(!is.na(Critic_Score)) %>%
@@ -83,6 +86,7 @@ train_set %>% select(Critic_Score) %>% filter(!is.na(Critic_Score)) %>%
   ggplot(aes(sample = Critic_Score)) +
   geom_qq()
 #Normal distribution
+#####
 
 ##EDA Critic_Count##
 train_set %>% select(Critic_Count) %>% filter(!is.na(Critic_Count)) %>%
@@ -93,19 +97,14 @@ train_set %>% select(Critic_Count) %>% filter(!is.na(Critic_Count)) %>%
   ggplot(aes(sample = Critic_Count)) +
   geom_qq()
 #Not normal, maybe log?
-train_set %>% select(Critic_Count) %>% filter(!is.na(Critic_Count)) %>%
-  ggplot(aes(sample = Critic_Count)) +
-  geom_qq()
+#####
 
 ##EDA Critic_Score##
 train_set %>% select(Critic_Score) %>% filter(!is.na(Critic_Score)) %>%
   ggplot(aes(Critic_Score)) +
   geom_histogram(binwidth = 2)
 #Much more normal distribution
-
-##EDA remove excess near zero variance variables
-library(caret)
-nzv <- nearZeroVar(x)
+#####
 
 ##EDA Platform
 train_set %>% select(Platform) %>% filter(!is.na(Platform)) %>%
@@ -120,11 +119,14 @@ Platform_vs_Sales<-lm(Global_Sales ~ Platform, data=train_set)
 glance(Platform_vs_Sales)
 tidy(Platform_vs_Sales)
 #P-values are low enough to say there is a relationship. 
+#####
+##EDA Testing whether there's correlation between variables Critic_Score & Critic_Count ##
+train_set %>% glimpse(
 
-##EDA Testing whether there's correlation between variables Critic_Score, Critic_Count, 
-#
-train_set %>% glimpse(.$User_Score)
-
-
+##RMSE formula for checking model##
+RMSE <- function(true_ratings, predicted_ratings){
+  sqrt(mean((true_ratings - predicted_ratings)^2))
+}
+#####
 
 
