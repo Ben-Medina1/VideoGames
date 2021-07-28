@@ -44,8 +44,8 @@ Let's start with basic regression.
 
 ```{r}
 library(caret)
-lm_data<-train_set %>% select(Global_Sales,Genre,Platform,Critic_Score,Critic_Count,User_Count,User_Count) %>% 
-train_lm <-train(Global_Sales ~ ., method='lm', data=train_set)
+lm_data<-train_set %>% select(Global_Sales,Genre,Platform,Critic_Score,Critic_Count,User_Count,User_Count)
+train_lm <-train(Global_Sales ~ ., method='lm', data=train_set,na.action = na.pass)
 ```
 
 # Results
