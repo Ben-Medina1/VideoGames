@@ -45,11 +45,13 @@ EDA 1
 ```
 
 
-Let's create the training and test sets.
+Let's create the training and test sets for determining overall sales.
 ```{r}
 library(caret)
 set.seed(0623)
-test_index <- createDataPartition(Data, times = 1, p = 0.5, list = FALSE)
+test_index <- createDataPartition(Data$Global_Sales, times = 1, p = 0.8, list = FALSE)
+test_set <-  Orig_Data[test_index, ] 
+train_set <- Orig_Data[-test_index, ]
 ```
 
 
