@@ -22,4 +22,11 @@ Data %>% select(Rating) %>% na.omit() %>%
   ggplot(aes(Rating)) +
   geom_bar()
 
+#Create training/test sets
+library(caret)
+set.seed(0623)
+test_index <- createDataPartition(Data$Global_Sales, times = 1, p = 0.8, list = FALSE)
+test_set <-  Orig_Data[test_index, ] 
+train_set <- Orig_Data[-test_index, ]
+
 
